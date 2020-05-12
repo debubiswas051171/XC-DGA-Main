@@ -1,0 +1,107 @@
+﻿
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+
+@inherits WebViewPage
+@{
+  Layout = null;
+}
+<!DOCTYPE html>
+<!--[if IE 9]><html lang="en" class="ie9 no-js"><![endif]-->
+<!--[if !IE]><!-->
+<html lang="@Sitecore.Context.Language.CultureInfo.TwoLetterISOLanguageName">
+<!--<![endif]-->
+<head>
+    <title>Annual Members Meeting</title>
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <!--[if lte IE 8]>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="CODE_LANGUAGE" content="C#" />
+    <meta name="vs_defaultClientScript" content="JavaScript" />
+    <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+
+    <link rel="Stylesheet" type="text/css" href="https://www.dga.org/styles/buttons.css?v=05042020" />
+    <link rel="Stylesheet" type="text/css" href="https://www.dga.org/styles/boxes.css?v=05042020" />
+    <link rel="Stylesheet" type="text/css" href="https://www.dga.org/styles/grid.css?v=05042020" />
+    <link rel="Stylesheet" type="text/css" href="https://www.dga.org/styles/ezmark.css?v=05042020" />
+    <link rel="Stylesheet" type="text/css" href="https://www.dga.org/styles/slider.css?v=05042020" />
+    <link rel="Stylesheet" type="text/css" href="https://www.dga.org/styles/videobox.css?v=05042020" />
+    <link rel="Stylesheet" type="text/css" href="https://www.dga.org/styles/colorbox.css?v=05042020" />
+    <link rel="Stylesheet" type="text/css" href="https://www.dga.org/styles/stylish-select.css?v=05042020" />
+    <link rel="Stylesheet" type="text/css" href="https://www.dga.org/styles/calendar.css?v=05042020" />
+    <link rel="Stylesheet" type="text/css" href="https://www.dga.org/styles/carousel.css?v=05042020" />
+    <link rel="Stylesheet" type="text/css" href="https://www.dga.org/styles/jquery.rte.css?v=05042020" />
+    <link rel="Stylesheet" type="text/css" href="https://www.dga.org/styles/richContent.css?v=05042020" />
+    <link rel="Stylesheet" type="text/css" href="https://www.dga.org/styles/isotope.css?v=05042020" />
+    <link rel="Stylesheet" type="text/css" href="https://www.dga.org/assets/css/jquery.Jcrop.css?v=05042020" />
+
+    @*@Html.Sitecore().VisitorIdentification()*@
+
+    <script type="text/javascript" src="https://www.dga.org/scripts/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="https://www.dga.org/scripts/cufon-yui.js"></script>
+    <script type="text/javascript" src="https://www.dga.org/scripts/DIN_500.font.js"></script>
+    <script type="text/javascript" src="https://www.dga.org/scripts/DIN-Medium_500.font.js"></script>
+    <script type="text/javascript" src="https://www.dga.org/scripts/DIN-Light_300.font.js"></script>
+
+    <script type="text/javascript" src="https://www.dga.org/scripts/global.js?v=05042020"></script>
+
+    <script type="text/javascript" src="https://www.dga.org/scripts/jquery.colorbox-min.js"></script>
+    <script type="text/javascript" src="https://www.dga.org/scripts/jquery.videobox.js"></script>
+    <script type="text/javascript" src="https://www.dga.org/scripts/jquery.ezmark.js?v=06102019"></script>
+    <script type="text/javascript" src="https://www.dga.org/scripts/jquery.stylish-select.js?v=06102019"></script>
+    <script type="text/javascript" src="https://www.dga.org/scripts/jquery.formatCurrency-1.4.0.js"></script>
+
+    <script type="text/javascript" src="https://www.dga.org/ckeditor_4.10.0_standard/ckeditor/ckeditor.js"></script>
+
+
+</head>
+<body class="header-static @(Sitecore.Context.PageMode.IsNormal ? "" : (Sitecore.Context.PageMode.IsExperienceEditor ? "pagemode-edit" : "pagemode-preview"))">
+    <div><span style="font-style:normal;color:white"></span></div>
+    <form method="post" runat="server" id="mainform">
+
+        <div class="bottomWaterMark"></div>
+        <div class="leftWaterMark"></div>
+        <div class="rightWaterMark"></div>
+
+        <script type="text/javascript" language="javascript">
+            $j(document).ready(function () {
+                $j('.innerContentEqual').each(function (index) {
+                    setEqualHeight($j(".innerContentSide .boxContent, .innerContentMain .boxContent, .innerContentHalf .boxContent", this));
+                });
+
+            });
+        </script>
+
+        <div id="dgaContainer">
+            <div class="dgaInnerContainer">
+
+                @Html.Sitecore().Placeholder("page-layout")
+
+                <div class="clr"></div>
+            </div>
+        </div>
+        <div class="pageClr"></div>
+
+
+        @*<sc:Sublayout runat="server" Path="https://www.dga.org/layouts/sublayouts/LogoutControl.ascx" />*@
+
+    </form>
+    <!-- To avoid delays, initialize Cufón before other scripts at the bottom -->
+    <script type="text/javascript">
+        Cufon.now();
+    </script>
+    <script type="text/javascript">
+        setTimeout(function () {
+            var a = document.createElement("script");
+            var b = document.getElementsByTagName('script')[0];
+            a.src = document.location.protocol + "https://www.dga.org//dnn506yrbagrg.cloudfront.net/pages/scripts/0011/5397.js?" + Math.floor(new Date().getTime() / 3600000);
+            a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+        }, 1);
+
+        console.log = function () { }
+    </script>
+
+
+</body>
+</html>

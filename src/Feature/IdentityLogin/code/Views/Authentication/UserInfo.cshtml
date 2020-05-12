@@ -1,0 +1,49 @@
+﻿@using Sitecore.Feature.Accounts
+@*@using Sitecore.Feature.Accounts.Services*@
+@using Sitecore.Foundation.Dictionary.Extensions
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+@using Sitecore.Mvc.Configuration
+@using System.Linq
+
+@{
+    var take2membersRole = Sitecore.Security.Accounts.Role.FromName(@"take2\member");
+    var extranetmembersRole = Sitecore.Security.Accounts.Role.FromName(@"extranet\member");
+
+    bool IsMembersRole = Sitecore.Context.User.IsInRole(take2membersRole)|| Sitecore.Context.User.IsInRole(extranetmembersRole);
+
+    Sitecore.Security.Accounts.User user = Sitecore.Context.User;
+
+    var rolesList = user.Roles.ToList2();
+
+
+}
+
+<div>
+    @Html.Sitecore().Field("Title")
+</div>
+<div>
+    @Html.Sitecore().Field("Text")
+</div>
+
+<div id="user-info">
+    <span>Is Authenticated: @Sitecore.Context.User.IsAuthenticated.ToString() </span><br />
+    <span>User name (test): @Sitecore.Context.User.Name</span><br />
+    <span>Full Name: @Sitecore.Context.User.Profile.FullName</span><br />
+    <span>Email: @Sitecore.Context.User.Profile.Email</span><br />
+    <span>Is Member Role: @IsMembersRole</span><br />
+    <div>
+        @foreach (var role in rolesList)
+        {
+            <span>roleName: @role.DisplayName</span><br />
+            <span>roleDomain: @role.Domain</span><br />
+        }
+    </div>
+    <span>Roles: @IsMembersRole</span><br />
+</div>
+<div id="logout">
+    @using (Html.BeginRouteForm(Sitecore.Mvc.Configuration.MvcSettings.SitecoreRouteName, FormMethod.Post))
+    {
+        @Html.Sitecore().FormHandler("UserInfo", "Logout")
+        <button type="submit">Logout</button>
+    }
+</div>
