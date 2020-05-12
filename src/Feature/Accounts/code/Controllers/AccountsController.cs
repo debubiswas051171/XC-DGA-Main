@@ -108,20 +108,10 @@
 
         //[RedirectAuthenticated]
         public ActionResult Login(string returnUrl = null, LoginInfo loginInfo=null)
-        //public async Task<ActionResult> Login(string returnUrl = null, LoginInfo loginInfo = null)
-        //public Task<ActionResult> Login(string returnUrl = null, LoginInfo loginInfo = null)
         {
             if (loginInfo != null&&!string.IsNullOrEmpty(loginInfo.Email))
             {
                 return DGALogin(loginInfo);
-                //object res = null;
-                //Task.Run(
-                //        () =>
-                //        {
-                //            res = DGALogin(loginInfo).ConfigureAwait(false);
-                            
-                //        });
-                //return (System.Web.Mvc.ActionResult)res;
             }
             else
             {
@@ -138,16 +128,13 @@
         //[ValidateModel]
         //[ValidateRenderingId]
         public ActionResult DGALogin(LoginInfo loginInfo)
-        //public async Task<ActionResult> DGALogin(LoginInfo loginInfo)
         {
-            var res = this.Login(loginInfo, redirectUrl => new RedirectResult(redirectUrl));//.ConfigureAwait(false);
+            var res = this.Login(loginInfo, redirectUrl => new RedirectResult(redirectUrl));
             return res;
         }
 
         protected virtual ActionResult Login(LoginInfo loginInfo, Func<string, ActionResult> redirectAction)
-        //protected async Task<ActionResult> Login(LoginInfo loginInfo, Func<string, ActionResult> redirectAction)
         {
-            //var user = this.AccountRepository.Login(loginInfo.Email, loginInfo.Password);
             var user = this.AccountRepository.DGALogin(loginInfo.Email, loginInfo.Password);
             if (user == null)
             {
@@ -161,7 +148,6 @@
                 redirectUrl = this.GetRedirectUrlService.GetRedirectUrl(AuthenticationStatus.Authenticated);
             }
 
-            //return redirectAction(redirectUrl);
             Response.Redirect(redirectUrl);
 
             return new ContentResult
@@ -170,23 +156,6 @@
             };
 
         }
-
-        //[HttpPost]
-        //[ValidateModel]
-        //public ActionResult _Login(LoginInfo loginInfo)
-        //{
-        //    return this.Login(loginInfo, redirectUrl => this.Json(new LoginResult
-        //    {
-        //        RedirectUrl = redirectUrl
-        //    }));
-        //}
-
-        //[HttpPost]
-        //[ValidateModel]
-        //public ActionResult LoginTeaser(LoginInfo loginInfo)
-        //{
-        //    return this.Login(loginInfo, redirectUrl => new RedirectResult(redirectUrl));
-        //}
 
         [HttpPost]
         public ActionResult Logout()

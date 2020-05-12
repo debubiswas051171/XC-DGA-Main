@@ -17,6 +17,5 @@
     void Logout();
     User Login(string userName, string password);
     User DGALogin(string userName, string password);
-    //Task<User> DGALogin(string userName, string password);
   }
 }

@@ -57,24 +57,9 @@
         #region DGA Login
 
         private IdentityModel.Client.IdentityModelExtensions.TokenResponse Take2RetrieveToken(string login, string password)
-        //public DGA.Take2Rest.IdentityModelExtensions.DGATokenResponse Take2RetrieveToken(string login, string password)
         {
             IdentityModel.Client.IdentityModelExtensions.TokenResponse token = null;
-            //DGA.Take2Rest.IdentityModelExtensions.DGATokenResponse token = null;
-
-            //Task.Run(async () => { token = await Client.RetrieveAccessToken(login, password); }).Wait();
-
-            //token = Client.RetrieveAccessToken(login, password).Result;
-
-            //token = await Client.RetrieveAccessToken(login, password).ConfigureAwait(false);
-            //Task.Run(async () => { token = await Client.RetrieveAccessToken(login, password); }).Wait();
-
-            //token = Task.Run(async () =>
-            //                     await Client.RetrieveAccessToken(login, password)
-            //                    ).Result;
-
             token = Client.RetrieveAccessToken(login, password);
-
             return token;
         }
 
@@ -85,15 +70,6 @@
             return token;
         }
 
-
-        //private User CreateVirtualUser(IdentityModel.Client.IdentityModelExtensions.TokenResponse token, string userName)
-        //{
-        //    var virtualUser = AuthenticationManager.BuildVirtualUser(string.Format("{0}\\{1}", Take2Domain, userName), true);
-        //    virtualUser.Profile.FullName = userName;
-        //    virtualUser.Profile.Email = string.Format("{0}@dga.org", userName);
-        //    virtualUser.Profile.Save();
-        //    return virtualUser;
-        //}
 
         private User CreateVirtualUser(DGATokenResponse token, string userName)
         {
@@ -117,12 +93,9 @@
         }
 
         public User DGALogin(string userName, string password)
-        //public async Task<User> DGALogin(string userName, string password)
         {
             var accountName = string.Empty;
             accountName = string.Format("{0}\\{1}", Take2Domain, userName);
-
-            //IdentityModel.Client.IdentityModelExtensions.TokenResponse token = Take2RetrieveToken(accountName,password).Result;
 
             IdentityModel.Client.IdentityModelExtensions.TokenResponse token = Take2RetrieveToken(accountName, password);
 
@@ -132,33 +105,12 @@
                 dgaToken = Take2RetrieveDGAToken(token.AccessToken);
             }
 
-            //DGATokenResponse token = Take2RetrieveToken(accountName, password);
-
-            //IdentityModel.Client.IdentityModelExtensions.TokenResponse token = await Take2RetrieveToken(accountName, password).ConfigureAwait(false);
-
-            //IdentityModel.Client.IdentityModelExtensions.TokenResponse token = null;
-            //Task.Run(
-            //                () =>
-            //                {
-            //                    token = Take2RetrieveToken(accountName, password);
-            //                });
-
-            //if (token != null)
-            //{
-            //    System.Web.HttpContext.Current.Session["authtoken"] = token.AccessToken;
-            //}
-
             if (dgaToken != null)
             {
                 var identifiedUser = CreateVirtualUser(dgaToken, userName);
                 var result = AuthenticationManager.LoginVirtualUser(identifiedUser);
 
             }
-            //if (!result)
-            //{
-            //    AccountTrackerService.TrackLoginFailed(accountName);
-            //    return null;
-            //}
 
             var user = AuthenticationManager.GetActiveUser();
             //this.pipelineService.RunLoggedIn(user);
