@@ -58,15 +58,17 @@
 
         private IdentityModel.Client.IdentityModelExtensions.TokenResponse Take2RetrieveToken(string login, string password)
         {
+            DiscoveryResponse disco = Client.GetDisco();
             IdentityModel.Client.IdentityModelExtensions.TokenResponse token = null;
-            token = Client.RetrieveAccessToken(login, password);
+            token = Client.RetrieveAccessToken(login, password, disco);
             return token;
         }
 
         private DGA.Take2Rest.IdentityModelExtensions.DGATokenResponse Take2RetrieveDGAToken(string tokenString)
         {
+            DiscoveryResponse disco = Client.GetDisco();
             DGA.Take2Rest.IdentityModelExtensions.DGATokenResponse token = null;
-            token = Client.RetrieveDGAAccessToken(tokenString);
+            token = Client.RetrieveDGAAccessToken(tokenString, disco);
             return token;
         }
 
@@ -77,7 +79,8 @@
             virtualUser.Profile.FullName = string.Format("{0} {1}",token.given_name,token.family_name);
             virtualUser.Profile.Email = token.email;
             virtualUser.Profile.Save();
-            if (token.role.Equals("member", StringComparison.InvariantCultureIgnoreCase))
+            if (token.role.Equals("member", StringComparison.InvariantCultureIgnoreCase) 
+             && token.is_member_in_good_standing)
             {
                 virtualUser.Roles.Add(Sitecore.Security.Accounts.Role.FromName(@"take2\member"));
             }
