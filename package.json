@@ -4,7 +4,7 @@
   "description": "Sitecore Habitat Node Dependencies",
   "main": "gulpfile.js",
   "dependencies": {
-    "async": "^1.5.2",
+    "async": "^2.6.4",
     "glob": "^7.0.3",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
